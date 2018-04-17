@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ¼ôÇÐ
+ * å‰ªåˆ‡
  * @author Sun
  *
  */
 public class Cut {
 	
 	/**
-	 * Ë®Æ½¼ôÇÐÓëÊúÖ±¼ôÇÐ
+	 * æ°´å¹³å‰ªåˆ‡ä¸Žç«–ç›´å‰ªåˆ‡
 	 * @param graph
 	 */
 	public static void horizontalCutting(byte[][] graph) {
@@ -33,14 +33,14 @@ public class Cut {
 			point[graph[0].length - y] = sum;
 		}
 		
-		// Æ½»º»¯
+		// å¹³ç¼“åŒ–
 //		for (int j = 0; j < 10; j++) {
 //			for (int i = 1; i < point.length - 1; i++) {
 //				point[i] = (point[i - 1] + point[i] + point[i + 1]) / 3;
 //			}
 //		}
 		
-		// »­Í¼
+		// ç”»å›¾
 //		for (int i = 0; i < point.length; i++) {
 //			StdDraw.point(point[i], i);
 //		}
@@ -49,21 +49,21 @@ public class Cut {
 		
 		ArrayList<Integer> row = new ArrayList<>();
 		
-		// ¼ÆËãÇÐ¸îÐÐÊý
+		// è®¡ç®—åˆ‡å‰²è¡Œæ•°
 		for (int i = 1; i < point.length - 1; i++) {
 			if (point[i - 1] == 0 && point[i] > 0) {
-				System.out.println("¿ªÊ¼:" + i);
+				System.out.println("row start:" + i);
 				row.add(i);
 			}
 			if (point[i] > 0 && point[i + 1] == 0) {
-				System.out.println("½áÊø:" + i);
+				System.out.println("row end:" + i);
 				row.add(i);
 			}
 		}
 		
 		ArrayList<byte[][]> graphList = new ArrayList<>();
 		
-		// ÇÐ¸î
+		// åˆ‡å‰²
 		for (int i = 0; i < row.size(); i+= 2) {
 			byte[][] newGraph = new byte[graph.length][row.get(i + 1) - row.get(i)];
 			int j = 0;
@@ -76,7 +76,7 @@ public class Cut {
 			graphList.add(newGraph);
 		}
 		
-		// ´òÓ¡ ÊúÖ±ÇÐ¸î
+		// æ‰“å° ç«–ç›´åˆ‡å‰²
 		for (int i = 0; i < graphList.size(); i++) {
 			byte[][] g = graphList.get(i);
 			
@@ -89,7 +89,6 @@ public class Cut {
 			for (int x = 0; x < g.length; x++) {
 				int sum = 0;
 				for (int y = 0; y < g[0].length; y++) {
-//					System.out.print(g[x][y]);
 					if (g[x][y] == 0) {
 						sum++;
 					}
@@ -98,17 +97,9 @@ public class Cut {
 				StdDraw.point(sum, g.length - x);
 			}
 			
-			// ´òÓ¡
-//			for (int x = 0; x < g.length; x++) {
-//				for (int y = 0; y < g[0].length; y++) {
-//					System.out.print(g[x][y]);
-//				}
-//				System.out.println();
-//			}
-			
 			StdDraw.setPenColor(Color.RED);
 			
-			// ¼ÇÂ¼×ÝÏò·Ö¸îµã
+			// è®°å½•çºµå‘åˆ†å‰²ç‚¹
 			List<Integer> verticalPointList = new ArrayList<>();
 			for (int j = pointSum.length - 1; j > 0; j--) {
 				if (pointSum[j] == 0 && pointSum[j - 1] > 0) {
@@ -138,7 +129,7 @@ public class Cut {
 			for (int j = 0; j < wordGraphList.size(); j++) {
 				byte[][] g2 = wordGraphList.get(j);
 				
-				// È¥³ý¿ÕÐÐ
+				// åŽ»é™¤ç©ºè¡Œ
 				int count = 0;
 				for (int x = 0; x < g2[0].length; x++) {
 					boolean flag = false;
@@ -152,7 +143,6 @@ public class Cut {
 						count++;
 					}
 				}
-				System.out.println();
 				
 				byte[][] wordGraph = new byte[count][g2.length];
 				int k = 0;
@@ -167,23 +157,20 @@ public class Cut {
 					if (flag) {
 						for (int y = 0; y < g2.length; y++) {
 							wordGraph[k][y] = g2[y][x];
-//							System.out.print(g2[y][x]);
 						}
-//						System.out.println();
 						k++;
 					}
 				}
 				
+				// æ‰“å°å›¾åƒ
+//				for (int x = 0; x < wordGraph.length; x++) {
+//					for (int y = 0; y < wordGraph[0].length; y++) {
+//						System.out.print(wordGraph[x][y]);
+//					}
+//					System.out.println();
+//				}
 				
-				for (int x = 0; x < wordGraph.length; x++) {
-					for (int y = 0; y < wordGraph[0].length; y++) {
-						System.out.print(wordGraph[x][y]);
-					}
-					System.out.println();
-				}
-				
-//				WordTemplate.cal(wordGraph);
-				new JiuGongGe().cal(wordGraph);
+				new Eros().cal(wordGraph);
 			}
 		}
 	}
