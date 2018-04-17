@@ -108,7 +108,7 @@ class ImageProcessingFrame extends JFrame {
 		fileMenu.add(exitItem);
 		
 		JMenu editMenu = new JMenu("Edit");
-		JMenuItem blurItem = new JMenuItem("Blur/Ä£ºı");
+		JMenuItem blurItem = new JMenuItem("Blur/æ¨¡ç³Š");
 		blurItem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -124,7 +124,7 @@ class ImageProcessingFrame extends JFrame {
 		});
 		editMenu.add(blurItem);
 		
-		JMenuItem sharpenItem = new JMenuItem("Sharpen/Èñ»¯");
+		JMenuItem sharpenItem = new JMenuItem("Sharpen/é”åŒ–");
 		sharpenItem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -136,7 +136,7 @@ class ImageProcessingFrame extends JFrame {
 		});
 		editMenu.add(sharpenItem);
 		
-		JMenuItem brightenItem = new JMenuItem("Brighten/ÔöÁÁ");
+		JMenuItem brightenItem = new JMenuItem("Brighten/å¢äº®");
 		brightenItem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -150,7 +150,7 @@ class ImageProcessingFrame extends JFrame {
 		});
 		editMenu.add(brightenItem);
 		
-		JMenuItem edgeDetectItem = new JMenuItem("Edge detect/±ßÔµ¼ì²â");
+		JMenuItem edgeDetectItem = new JMenuItem("Edge detect/è¾¹ç¼˜æ£€æµ‹");
 		edgeDetectItem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -162,7 +162,7 @@ class ImageProcessingFrame extends JFrame {
 		});
 		editMenu.add(edgeDetectItem);
 		
-		JMenuItem negativeItem = new JMenuItem("Negative/µ×Æ¬");
+		JMenuItem negativeItem = new JMenuItem("Negative/åº•ç‰‡");
 		negativeItem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -179,7 +179,7 @@ class ImageProcessingFrame extends JFrame {
 		});
 		editMenu.add(negativeItem);
 		
-		JMenuItem rotateItem = new JMenuItem("Rotate/Ğı×ª");
+		JMenuItem rotateItem = new JMenuItem("Rotate/æ—‹è½¬");
 		rotateItem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -197,7 +197,7 @@ class ImageProcessingFrame extends JFrame {
 		});
 		editMenu.add(rotateItem);
 		
-		JMenuItem grayscale = new JMenuItem("Grayscale/»Ò¶È´¦Àí");
+		JMenuItem grayscale = new JMenuItem("Grayscale");
 		grayscale.addActionListener(new ActionListener() {
 			
 			@Override
@@ -231,7 +231,7 @@ class ImageProcessingFrame extends JFrame {
 		});
 		editMenu.add(grayscale);
 	
-		JMenuItem blackAndWhite = new JMenuItem("Black And White/ºÚ°×»¯");
+		JMenuItem blackAndWhite = new JMenuItem("Black And White");
 		blackAndWhite.addActionListener(new ActionListener() {
 			
 			@Override
@@ -248,33 +248,30 @@ class ImageProcessingFrame extends JFrame {
 					e1.printStackTrace();
 				}
 				
-				if (trough == 0) {
-					System.out.println("Í¼Æ¬ºÚ°×»¯ĞèÏÈ»Ò¶È»¯!");
-				} else {
-					System.out.println("trough:" + trough);
-					for (int x = minx; x < width; x++) {
-						for (int y = miny; y < height; y++) {
-							int pixel = image.getRGB(x, y);
-							int r = (pixel & 0xff0000) >> 16;
-							int g = (pixel & 0xff00) >> 8;
-							int b = (pixel & 0xff);
-							int t = (int) (r * 0.11 + g * 0.59 + b * 0.3); 
-							if (t <= trough) {
-								image.setRGB(x, y, 0);
-								graph[x][y] = 0;
-								points.add(new Point(x, y));
-							} else {
-								image.setRGB(x, y, -1);
-								graph[x][y] = 1;
-							}
+				System.out.println("trough:" + trough);
+				for (int x = minx; x < width; x++) {
+					for (int y = miny; y < height; y++) {
+						int pixel = image.getRGB(x, y);
+						int r = (pixel & 0xff0000) >> 16;
+						int g = (pixel & 0xff00) >> 8;
+						int b = (pixel & 0xff);
+						int t = (int) (r * 0.11 + g * 0.59 + b * 0.3); 
+						if (t <= trough) {
+							image.setRGB(x, y, 0);
+							graph[x][y] = 0;
+							points.add(new Point(x, y));
+						} else {
+							image.setRGB(x, y, -1);
+							graph[x][y] = 1;
 						}
 					}
 				}
 				
-				// ´òÓ¡Í¼Ïñ
+				// è°ƒè¯•æ–¹æ³•
 //				printGraph();
 //				WordTemplate.cal(graph);
 //				new JiuGongGe().cal(graph);
+//				new Eros().cal(graph);
 				
 				repaint();
 			}
@@ -282,7 +279,7 @@ class ImageProcessingFrame extends JFrame {
 		});
 		editMenu.add(blackAndWhite);
 		
-		JMenuItem denoising = new JMenuItem("Denoising/½µÔë");
+		JMenuItem denoising = new JMenuItem("Denoising");
 		denoising.addActionListener(new ActionListener() {
 			
 			@Override
@@ -296,7 +293,7 @@ class ImageProcessingFrame extends JFrame {
 						int rgb = image.getRGB(i - 1, j - 1) + image.getRGB(i, j - 1) + image.getRGB(i + 1, j -1)
 						 	+ image.getRGB(i - 1, j) + image.getRGB(i, j) + image.getRGB(i + 1, j)
 						 	+ image.getRGB(i - 1, j + 1) + image.getRGB(i, j + 1) + image.getRGB(i + 1, j + 1);
-						if (rgb > -3 * 16777216) {
+						if (rgb > -4 * 16777216) {
 							image.setRGB(i, j, -1);
 						}
 					}
@@ -307,7 +304,7 @@ class ImageProcessingFrame extends JFrame {
 		});
 		editMenu.add(denoising);
 		
-		JMenuItem adjustAngle = new JMenuItem("Adjust Angle/µ÷ºâ");
+		JMenuItem adjustAngle = new JMenuItem("Balance");
 		adjustAngle.addActionListener(new ActionListener() {
 			
 			@Override
@@ -324,18 +321,21 @@ class ImageProcessingFrame extends JFrame {
 				
 				byte[][] graph2 = new byte[graph.length][graph[0].length];
 				
-				// ÔÚÕı¸º5¶ÈÒÔÄÚµ÷Õû
+				// åœ¨æ­£è´Ÿ5åº¦ä»¥å†…è°ƒæ•´
 				while (angle <= 5) {
-					// Ë³Ê±ÕëĞı×ª
+					
+					// é¡ºæ—¶é’ˆæ—‹è½¬
 					AffineTransform transform = AffineTransform.getRotateInstance(Math.toRadians(angle)
 							, image.getWidth() / 2, image.getHeight() / 2);
 					AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
 					filter(op);
-					// ¸üĞÂgraph2 ²»¸Ä±äÍ¼Ïñ´óĞ¡
+					
+					// æ›´æ–°graph2 ä¸æ”¹å˜å›¾åƒå¤§å°
 					for (int i = 0; i < graph.length; i++) {
 						for (int j = 0; j < graph[0].length; j++) {
 							int rgb = image.getRGB(i, j);
-							// È¥³ıÊ§Õæ´øÀ´µÄ¸ÉÈÅÖµ
+							
+							// å»é™¤å¤±çœŸå¸¦æ¥çš„å¹²æ‰°å€¼
 							if (rgb != -1) {
 								if (rgb == 0) {
 									graph2[i][j] = 1;
@@ -355,36 +355,46 @@ class ImageProcessingFrame extends JFrame {
 							}
 						}
 					}
-					// ¼ÆËãÆ½ºâÖµ
+					
+					// è®¡ç®—å¹³è¡¡å€¼
 					int balanceCode = calculateBalanceCode(graph2);
 					if (balanceCode > maxBalanceCode) {
 						maxBalanceCode = balanceCode;
 						balanceAngle = angle;
 					}
-//					System.out.println("angle:" + angle + " balanceCode:" + balanceCode);
 					angle += 0.1;
-					// Í¼Ïñ»¹Ô­
+					
+					// å›¾åƒè¿˜åŸ
 					image = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_RGB);
 					image.getGraphics().drawImage(rootImage, 0, 0, null);
 				}
 				
 				System.out.println("Balance Angle : " + balanceAngle);
 				
-				// µ÷Õûµ½ºÏÊÊÎ»ÖÃ
+				// è°ƒæ•´åˆ°åˆé€‚ä½ç½®
 				AffineTransform transform = AffineTransform.getRotateInstance(Math.toRadians(balanceAngle)
 						, image.getWidth() / 2, image.getHeight() / 2);
 				AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BICUBIC);
 				filter(op);
 				
-				// ¸üĞÂgraph
+				// æ›´æ–°graph
 				updateGraph();
-				
-				Cut.horizontalCutting(graph);
 				
 			}
 			
 		});
 		editMenu.add(adjustAngle);
+		
+		JMenuItem Recognition = new JMenuItem("Recognition");
+		Recognition.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Cut.horizontalCutting(graph);
+			}
+			
+		});
+		editMenu.add(Recognition);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(fileMenu);
@@ -444,7 +454,7 @@ class ImageProcessingFrame extends JFrame {
 		for (int i = 0; i < graph.length; i++) {
 			for (int j = 0; j < graph[0].length; j++) {
 				int rgb = image.getRGB(i, j);
-				// È¥³ıÊ§Õæ´øÀ´µÄ¸ÉÈÅÖµ
+				// å»é™¤å¤±çœŸå¸¦æ¥çš„å¹²æ‰°å€¼
 				if (rgb != -1) {
 					if (rgb == 0) {
 						graph[i][j] = 1;
